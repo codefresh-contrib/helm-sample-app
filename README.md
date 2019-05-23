@@ -14,8 +14,6 @@ To compile and package using Docker multi-stage builds
 docker build . -t my-app
 ```
 
-```
-
 ## To run the docker image
 
 ```bash
