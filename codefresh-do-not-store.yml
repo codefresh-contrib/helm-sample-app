@@ -30,3 +30,4 @@ steps:
       - VALUE_image_pullPolicy=Always
       - VALUE_image_tag='multi-stage'
       - VALUE_replicaCount=3
+      - VALUE_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default
