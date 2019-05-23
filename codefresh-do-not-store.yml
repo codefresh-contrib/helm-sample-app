@@ -1,0 +1,32 @@
+version: '1.0'
+stages:
+  - prepare   
+  - build
+  - deploy
+steps:
+  main_clone:
+    title: Cloning main repository...
+    stage: prepare
+    type: git-clone
+    repo: 'codefresh-contrib/helm-sample-app'
+    revision: master
+    git: github    
+  MyAppDockerImage:
+    title: Building Docker Image
+    stage: build
+    type: build
+    image_name: helm-sample-app-go
+    working_directory: ./
+    tag: 'multi-stage'
+    dockerfile: Dockerfile  
+  DeployMyChart:
+    image: 'codefresh/cfstep-helm:2.12.3'
+    title: Deploying Helm chart
+    stage: deploy
+    environment:
+      - CHART_REF=charts/helm-sample-app
+      - RELEASE_NAME=my-go-chart-prod
+      - KUBE_CONTEXT=kostis-demo@FirstKubernetes 
+      - VALUE_image_pullPolicy=Always
+      - VALUE_image_tag='multi-stage'
+      - VALUE_replicaCount=3
