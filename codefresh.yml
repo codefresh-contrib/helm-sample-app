@@ -33,7 +33,7 @@ steps:
     environment:
       - CHART_REF=charts/helm-example
       - RELEASE_NAME=my-go-chart-prod
-      - KUBE_CONTEXT=kostis-demo@FirstKubernetes 
+      - KUBE_CONTEXT=my-demo-k8s-cluster
       - VALUE_image_pullPolicy=Always
       - VALUE_image_tag='multi-stage'
       - VALUE_replicaCount=3
