@@ -5,7 +5,7 @@ stages:
   - deploy
 steps:
   main_clone:
-    title: Cloning main repository...
+    title: Cloning main repository....
     stage: prepare
     type: git-clone
     repo: 'codefresh-contrib/helm-sample-app'
