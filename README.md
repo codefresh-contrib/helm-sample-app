@@ -3,7 +3,7 @@
 ![Helm plus Codefresh](codefresh-helm.jpg)
 
 This is an example Go application packaged with Docker and Helm.
-It is compiled using Codefresh.
+It is compiled using Codefresh.f
 
 
 ## Create a multi-stage docker image
