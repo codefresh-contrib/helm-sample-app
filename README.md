@@ -1,5 +1,4 @@
 # Codefresh Helm example
-[![Codefresh build status]( https://g.codefresh.io/api/badges/pipeline/guysaltoncf/guysaltoncf%2Fguydemo%2Fk8sdemo?key=eyJhbGciOiJIUzI1NiJ9.NWM2MTYxYjU0MzM4ZWU1Mjc3ZmI3N2E2.fgXpZql4CEyuBTYf3t6uC9yvAVG7bTm-sHM726h7T5g&type=cf-2)]( https://g.codefresh.io/pipelines/k8sdemo/builds?filter=trigger:build~Build;pipeline:5d21d1cea7e22e86947ea810~k8sdemo)
 ![Helm plus Codefresh](codefresh-helm.jpg)
 
 This is an example Go application packaged with Docker and Helm.
