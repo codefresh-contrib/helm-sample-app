@@ -22,12 +22,12 @@ steps:
   StoreChart:
     title: Storing Helm chart
     stage: deploy
-    image: 'codefresh/cfstep-helm:2.12.3'
+    image: 'codefresh/cfstep-helm:3.0.3'
     environment:
       - ACTION=push
       - CHART_REF=charts/helm-example    
   DeployMyChart:
-    image: 'codefresh/cfstep-helm:2.12.3'
+    image: 'codefresh/cfstep-helm:3.0.3'
     title: Deploying Helm chart
     stage: deploy
     environment:
@@ -37,4 +37,5 @@ steps:
       - VALUE_image_pullPolicy=Always
       - VALUE_image_tag='multi-stage'
       - VALUE_replicaCount=3
+      - VALUE_buildID='${{CF_BUILD_ID}}'
       - VALUE_image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default
