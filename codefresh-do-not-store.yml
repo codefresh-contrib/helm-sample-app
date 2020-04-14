@@ -22,6 +22,7 @@ steps:
       tag: multi-stage
       dockerfile: Dockerfile
   deploy:
+    title: Deploying Helm Chart
     type: helm
     stage: deploy
     working_directory: ./helm-sample-app
