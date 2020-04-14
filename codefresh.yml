@@ -1,41 +1,46 @@
 version: '1.0'
 stages:
-  - prepare   
+  - prepare
   - build
+  - store
   - deploy
 steps:
-  main_clone:
+  clone:
     title: Cloning main repository...
     stage: prepare
     type: git-clone
-    repo: 'codefresh-contrib/helm-sample-app'
-    revision: master
-    git: github    
-  MyAppDockerImage:
+    arguments:
+      repo: codefresh-contrib/helm-sample-app
+      revision: master
+      git: github
+  build:
     title: Building Docker Image
     stage: build
     type: build
-    image_name: helm-sample-app-go
-    working_directory: ./
-    tag: 'multi-stage'
-    dockerfile: Dockerfile
-  StoreChart:
-    title: Storing Helm chart
+    working_directory: ./helm-sample-app
+    arguments:
+      image_name: helm-sample-app-go
+      tag: multi-stage
+      dockerfile: Dockerfile
+  store:
+    title: Storing Helm Chart
+    type: helm
+    stage: store
+    working_directory: ./helm-sample-app
+    arguments:
+      action: push
+      chart_name: charts/helm-example
+      chart_repo_url: 'cm://h.cfcr.io/anna-codefresh/default'
+      kube_context: my-demo-k8s-cluster
+  deploy:
+    type: helm
     stage: deploy
-    image: 'codefresh/cfstep-helm:3.0.3'
-    environment:
-      - ACTION=push
-      - CHART_REF=charts/helm-example    
-  DeployMyChart:
-    image: 'codefresh/cfstep-helm:3.0.3'
-    title: Deploying Helm chart
-    stage: deploy
-    environment:
-      - CHART_REF=charts/helm-example
-      - RELEASE_NAME=my-go-chart-prod
-      - KUBE_CONTEXT=my-demo-k8s-cluster
-      - VALUE_image_pullPolicy=Always
-      - VALUE_image_tag='multi-stage'
-      - VALUE_replicaCount=3
-      - VALUE_buildID='${{CF_BUILD_ID}}'
-      - VALUE_image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default
+    working_directory: ./helm-sample-app
+    arguments:
+      action: install
+      chart_name: charts/helm-example
+      release_name: my-go-chart-prod
+      helm_version: 3.0.2
+      kube_context: my-demo-k8s-cluster
+      custom_values:
+        - 'buildID=${{CF_BUILD_ID}}'
