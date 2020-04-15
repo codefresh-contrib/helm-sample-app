@@ -44,3 +44,7 @@ steps:
       kube_context: my-demo-k8s-cluster
       custom_values:
         - 'buildID=${{CF_BUILD_ID}}'
+        - 'image_pullPolicy=Always'
+        - 'image_tag=multi-stage'
+        - 'replicaCount=3'
+        - 'image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default'
