@@ -9,19 +9,17 @@ steps:
     title: Cloning main repository...
     stage: prepare
     type: git-clone
-    arguments:
-      repo: codefresh-contrib/helm-sample-app
-      revision: master
-      git: github
+    repo: codefresh-contrib/helm-sample-app
+    revision: "${{CF_BRANCH}}"
+    git: github
   build:
     title: Building Docker Image
     stage: build
     type: build
     working_directory: ./helm-sample-app
-    arguments:
-      image_name: helm-sample-app-go
-      tag: multi-stage
-      dockerfile: Dockerfile
+    image_name: anaisurlichs/helm-sample-app-go
+    tag: multi-stage
+    dockerfile: Dockerfile
   store:
     title: Storing Helm Chart
     type: helm
@@ -46,4 +44,3 @@ steps:
         - 'image_pullPolicy=Always'
         - 'image_tag=multi-stage'
         - 'replicaCount=3'
-        - 'image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default'
