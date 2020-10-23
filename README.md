@@ -26,7 +26,10 @@ And then visit http://localhost:8080 in your browser.
 
 ## Editing the chart
 
-Make sure to edit the templates and values with your own settings (e.g. docker image deployed).
+Make sure to edit the templates and values with your own settings (e.g. docker image deployed). 
+
+Specifically, 
+* kube_context: anais-cluster@codefresh-sa in the codefresh.yml
 
 ## To use this project in Codefresh
 
