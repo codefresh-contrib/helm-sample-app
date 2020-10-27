@@ -9,8 +9,8 @@ steps:
     stage: prepare
     type: git-clone
     arguments:
-      repo: codefresh-contrib/helm-sample-app
-      revision: master
+      repo: anais-codefresh/helm-sample-app
+      revision: "${{CF_BRANCH}}"
       git: github
   build:
     title: Building Docker Image
@@ -31,10 +31,9 @@ steps:
       chart_name: charts/helm-example
       release_name: my-go-chart-prod
       helm_version: 3.0.2
-      kube_context: my-demo-k8s-cluster
+      kube_context: anais-cluster@codefresh-sa
       custom_values:
         - 'buildID=${{CF_BUILD_ID}}'
         - 'image_pullPolicy=Always'
         - 'image_tag=multi-stage'
         - 'replicaCount=3'
-        - 'image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default'

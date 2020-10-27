@@ -9,19 +9,17 @@ steps:
     title: Cloning main repository...
     stage: prepare
     type: git-clone
-    arguments:
-      repo: codefresh-contrib/helm-sample-app
-      revision: master
-      git: github
+    repo: codefresh-contrib/helm-sample-app
+    revision: "${{CF_BRANCH}}"
+    git: github
   build:
     title: Building Docker Image
     stage: build
     type: build
     working_directory: ./helm-sample-app
-    arguments:
-      image_name: helm-sample-app-go
-      tag: multi-stage
-      dockerfile: Dockerfile
+    image_name: anaisurlichs/helm-go-example
+    tag: 2.0.0
+    dockerfile: Dockerfile
   store:
     title: Storing Helm Chart
     type: helm
@@ -29,9 +27,9 @@ steps:
     working_directory: ./helm-sample-app
     arguments:
       action: push
+      helm_version: 3.0.2
       chart_name: charts/helm-example
-      chart_repo_url: 'cm://h.cfcr.io/anna-codefresh/default'
-      kube_context: my-demo-k8s-cluster
+      kube_context: anais-cluster@codefresh-sa
   deploy:
     type: helm
     stage: deploy
@@ -41,10 +39,9 @@ steps:
       chart_name: charts/helm-example
       release_name: my-go-chart-prod
       helm_version: 3.0.2
-      kube_context: my-demo-k8s-cluster
+      kube_context: anais-cluster@codefresh-sa
       custom_values:
         - 'buildID=${{CF_BUILD_ID}}'
         - 'image_pullPolicy=Always'
-        - 'image_tag=multi-stage'
+        - 'image_tag=2.0.0'
         - 'replicaCount=3'
-        - 'image_pullSecret=codefresh-generated-r.cfcr.io-cfcr-default'

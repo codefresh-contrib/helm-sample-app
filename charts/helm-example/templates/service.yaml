@@ -1,18 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ include "helm-example.fullname" . }}
   labels:
-    app.kubernetes.io/name: "{{ template "name" . }}"  
-    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
-    app.kubernetes.io/managed-by: "{{ .Release.Service  }}"
-    app.kubernetes.io/instance: "{{ .Release.Name }}"   
+    {{- include "helm-example.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.externalPort }}
-    targetPort: {{ .Values.service.internalPort }}
-    protocol: TCP
-    name: {{ .Values.service.name }}
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    app: {{ template "fullname" . }}
+    {{- include "helm-example.selectorLabels" . | nindent 4 }}

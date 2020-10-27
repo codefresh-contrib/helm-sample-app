@@ -5,6 +5,8 @@
 This is an example Go application packaged with Docker and Helm.
 It is compiled using Codefresh.
 
+To see how you can store and deploy your first Helm Chart using a Codefresh pipeline, please follow [this tutorial](https://codefresh.io/docs/docs/yaml-examples/examples/helm/).
+
 
 ## Create a multi-stage docker image
 
@@ -24,12 +26,14 @@ And then visit http://localhost:8080 in your browser.
 
 ## Editing the chart
 
-The chart was created using [Draft](draft.sh). Make sure to edit the templates and values
-with your own settings (e.g. docker image deployed).
+Make sure to edit the templates and values with your own settings (e.g. docker image deployed). 
+
+Specifically, 
+* kube_context: anais-cluster@codefresh-sa in the codefresh.yml
 
 ## To use this project in Codefresh
 
-There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](codefresh.io) CI/CD platform.
+There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](https://codefresh.io/) CI/CD platform.
 
 For the direct deployment without storing the helm chart first see [codefresh-do-not-store.yml](codefresh-do-not-store.yml)
 
