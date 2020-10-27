@@ -1,9 +1,16 @@
-FROM golang:1.7.1 AS build-env
-COPY src /go/src
-RUN CGO_ENABLED=0 GOOS=linux go build -o bin/sample src/sample/trivial-web-server.go
+FROM golang:1.14
 
-FROM scratch
-COPY --from=build-env /go/bin/sample /app/sample
+# Copy everything from the current directory to the PWD (Present Working Directory) inside the container
+COPY . .
 
+# Download all the dependencies
+RUN go get -d -v ./...
+
+# Install the package
+RUN go install -v ./...
+
+# This container exposes port 8080 to the outside world
 EXPOSE 8080
-CMD ["/app/sample"]
+
+# Run the executable
+CMD ["sample"]

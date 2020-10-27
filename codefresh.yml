@@ -17,8 +17,8 @@ steps:
     stage: build
     type: build
     working_directory: ./helm-sample-app
-    image_name: anaisurlichs/helm-sample-app-go
-    tag: multi-stage
+    image_name: anaisurlichs/helm-go-example
+    tag: 1.0.0
     dockerfile: Dockerfile
   store:
     title: Storing Helm Chart
@@ -42,5 +42,5 @@ steps:
       custom_values:
         - 'buildID=${{CF_BUILD_ID}}'
         - 'image_pullPolicy=Always'
-        - 'image_tag=multi-stage'
+        - 'image_tag=1.0.0'
         - 'replicaCount=3'
